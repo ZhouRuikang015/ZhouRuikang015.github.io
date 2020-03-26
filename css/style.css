@@ -112,6 +112,9 @@ img.thumbnail {
   color: #3273dc;
   background-color: transparent;
 }
+.navbar-main .navbar-item:hover {
+  color: #2e9a0c !important;
+}
 @media screen and (max-width: 1087px) {
   .navbar-main .navbar-menu {
     justify-content: center;
@@ -531,4 +534,19 @@ figure.highlight .section {
 }
 .gist .file {
   all: initial;
+}
+/* ---------------------------------
+ *        myself
+ * --------------------------------- */
+.search-input-box {
+  height: 30px;
+  width: 270px;
+  margin: 18px 15px;
+  box-sizing: border-box;
+  box-shadow: 0 0px 3px 1px rgba(0,0,0,0.1);
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #888;
 }
