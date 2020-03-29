@@ -7,16 +7,24 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>分类: 项目部署 - 醒不来</title>
+<title>java开发桌面应用（一）JavaFx初体验 - 醒不来</title>
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="醒不来">
-<meta property="og:url" content="http://zhouruikang.cn/categories/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/index.html">
+    <meta name="description" content="故事发生在两个月前，哈工大的同学找到我，他的老师之前接了个海绵城市系统评价相关的项目，最后的提交里需要有一个桌面应用。之前我对桌面开发没多了解，但想到咱java无所不能，加上顺手谷歌一下看到javafx能做。既然能做那就不是问题，帮他这个忙啦～">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java开发桌面应用（一）JavaFx初体验">
+<meta property="og:url" content="http://zhouruikang.cn/2020/0327/javafx01-helloworld.html">
 <meta property="og:site_name" content="醒不来">
+<meta property="og:description" content="故事发生在两个月前，哈工大的同学找到我，他的老师之前接了个海绵城市系统评价相关的项目，最后的提交里需要有一个桌面应用。之前我对桌面开发没多了解，但想到咱java无所不能，加上顺手谷歌一下看到javafx能做。既然能做那就不是问题，帮他这个忙啦～">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://zhouruikang.cn/images/og_image.png">
+<meta property="article:published_time" content="2020-03-27T15:07:18.779Z">
+<meta property="article:modified_time" content="2020-03-29T17:21:39.889Z">
 <meta property="article:author" content="醒不来">
+<meta property="article:tag" content="javafx">
+<meta property="article:tag" content="jfoenix">
+<meta property="article:tag" content="scene builder">
+<meta property="article:tag" content="java桌面开发">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://zhouruikang.cn/images/og_image.png">
 
@@ -118,123 +126,186 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-27T15:07:18.779Z">2020-03-27</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javafx/">javafx</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 分钟 读完 (大约 952 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                java开发桌面应用（一）JavaFx初体验
+            
+        </h1>
+        <div class="content">
+            <p>故事发生在两个月前，哈工大的同学找到我，他的老师之前接了个海绵城市系统评价相关的项目，最后的提交里需要有一个桌面应用。之前我对桌面开发没多了解，但想到咱java无所不能，加上顺手谷歌一下看到javafx能做。既然能做那就不是问题，帮他这个忙啦～</p>
+<a id="more"></a>
+
+
+
+<p>目前主流的桌面开发，跨平台用qt，不跨平台用winform或wpf。</p>
+<p>javafx虽然不太主流，但是也能做啦～</p>
+<p>常用的开发套路：javafx 框架 + Jfoenix UI控件 + Scene Builder可视化工具</p>
+<p>下面举个简单的小栗子来初步感受吧～</p>
+<p>（源码记录 <a href="https://github.com/ZhouRuikang015/javafx-havefun">https://github.com/ZhouRuikang015/javafx-havefun</a></p>
+<p><strong>环境准备：</strong></p>
+<ul>
+<li><a href="https://www.jetbrains.com/idea/">IntelliJ IDEA</a></li>
+<li><a href="http://www.oracle.com/technetwork/java/javase/overview/index.html">JDK 1.8</a></li>
+<li><a href="https://gluonhq.com/products/scene-builder/">Scene Builder 8.5.0</a></li>
+</ul>
+<h1 id="1-新建一个javafx项目"><a href="#1-新建一个javafx项目" class="headerlink" title="1.新建一个javafx项目"></a>1.新建一个javafx项目</h1><p>使用IDEA自带的新建项目菜单即可</p>
+<p><img src="http://img.zhouruikang.cn/2020/0326/javafx1-1.png" alt=""></p>
+<p>目录结构如下，直接点击Main运行，效果如右图</p>
+<p><img src="http://img.zhouruikang.cn/2020/0326/javafx1-2r.png" alt=""></p>
+<p>接下来可以大致感受javafx框架的想法，项目从Main.java进入，加载view层sample.fxml，窗口设置title和scene参数后展出。sample.fxml与controller层Controller.java进行行为绑定。与MVC类似，理解起来比较容易，接下来就开始玩吧～</p>
+<p><img src="http://img.zhouruikang.cn/2020/0326/javafx1-3.png" alt=""></p>
+<h1 id="2-添加Maven"><a href="#2-添加Maven" class="headerlink" title="2.添加Maven"></a>2.添加Maven</h1><p>为方便引入三方库管理项目，引入Maven。</p>
+<ul>
+<li>首先将设置里Maven配置修改为自己提前安装好的maven地址。</li>
+</ul>
+<p><img src="http://img.zhouruikang.cn/2020/0326/javafx1-4.png" alt=""></p>
+<ul>
+<li>引入maven</li>
+</ul>
+<p>右键项目名选择 <code>Add Framework Support...</code> ，选择Maven确认，并修改一下目录结构。</p>
+<p><img src="http://img.zhouruikang.cn/2020/0326/javafx1-5rr.png" alt=""></p>
+<p><strong>注：</strong>将sample.fxml移动到resource目录下需修改Main.java中的加载路径<code>FXMLLoader.load(getClass().getResource(&quot;/sample.fxml&quot;))</code></p>
+<h1 id="3-引入Jfoenix-UI库"><a href="#3-引入Jfoenix-UI库" class="headerlink" title="3.引入Jfoenix UI库"></a>3.引入Jfoenix UI库</h1><p><a href="https://github.com/jfoenixadmin/JFoenix">Jfoenix项目地址及Components演示</a></p>
+<ul>
+<li>项目引入：<code>pom.xml</code> 文件里添加</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jfoenix<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jfoenix<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.8<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>scene builder工具引入</li>
+</ul>
+<p>图中第二步从Maven仓库找到刚下载好的 <code>jfoenix-8.0.8.jar</code>，第三步全部或按需引入。</p>
+<p>完成后在Library的Custom栏即引入的Jfoenix组件。</p>
+<p><img src="http://img.zhouruikang.cn/2020/0326/javafx1-6r.png" alt=""></p>
+<h1 id="4-使用scene-builder编写界面"><a href="#4-使用scene-builder编写界面" class="headerlink" title="4.使用scene builder编写界面"></a>4.使用scene builder编写界面</h1><p>通过scene builder工具可视化编写<code>.fxml</code>视图文件。</p>
+<ul>
+<li>打开设置，建立IDEA与scene builder工具关联</li>
+</ul>
+<p><img src="http://img.zhouruikang.cn/2020/0326/javafx1-7.png" alt=""></p>
+<p>这样选中<code>sample.fxml</code>文件右键点击 <code>Open In SceneBuilder</code> 即可直接打开scene builder可视化编辑该文件。</p>
+<ul>
+<li>scene builder编辑演示</li>
+</ul>
+<p><img src="http://img.zhouruikang.cn/2020/0326/javafx1-8.png" alt=""></p>
+<p>简单说明，</p>
+<ol>
+<li><p>图中引入三个组件，AnchorPane做背景板，一个按钮JFXButton，一个文本栏JFXTextField</p>
+</li>
+<li><p>右侧code栏处，JFXButton的Id名设置为button，响应方法名为changeInput。JFXTextField的Id名为textField，无响应方法。</p>
+</li>
+<li><p>左侧Controller指定<code>sample.fxml</code>的控制器<code>Controller.java</code>，方便自动生成Controller代码</p>
+</li>
+</ol>
+<ul>
+<li>使用自动生成的Controller代码</li>
+</ul>
+<p>打开scene builder工具左上角 <code>View / Show Simple Controller Skeleton</code>，复制粘贴至项目中<code>Controller.java</code>，然后再编辑省时省力～</p>
+<p><img src="http://img.zhouruikang.cn/2020/0326/javafx1-9.png" alt=""></p>
+<ul>
+<li>更新项目中sample.fxml</li>
+</ul>
+<p>工具里 点保存 ！！。</p>
+<ul>
+<li>预览效果</li>
+</ul>
+<p>在scene builder工具使用中不免想预览界面效果，左上角 <code>Preview / Show Preview in Window</code></p>
+<h1 id="5-初体验"><a href="#5-初体验" class="headerlink" title="5.初体验"></a>5.初体验</h1><ul>
+<li>简单编写Controller.java完成组件的行为响应。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sample;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.jfoenix.controls.JFXButton;</span><br><span class="line"><span class="keyword">import</span> com.jfoenix.controls.JFXTextField;</span><br><span class="line"><span class="keyword">import</span> javafx.event.ActionEvent;</span><br><span class="line"><span class="keyword">import</span> javafx.fxml.FXML;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@FXML</span></span><br><span class="line">    <span class="keyword">private</span> JFXButton button;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@FXML</span></span><br><span class="line">    <span class="keyword">private</span> JFXTextField textField;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@FXML</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">changeInput</span><span class="params">(ActionEvent event)</span> </span>&#123;</span><br><span class="line">        String text = textField.getText();</span><br><span class="line">        <span class="keyword">if</span> (text.equals(<span class="string">"hello"</span>))&#123;</span><br><span class="line">            textField.setText(<span class="string">"world!"</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            textField.setText(<span class="string">""</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>运行效果</li>
+</ul>
+<p><img src="http://img.zhouruikang.cn/2020/0326/javafx1.gif" alt=""></p>
+<p>还挺好玩的～</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/javafx/" rel="tag">javafx</a>, <a class="has-link-grey -link" href="/tags/java%E6%A1%8C%E9%9D%A2%E5%BC%80%E5%8F%91/" rel="tag">java桌面开发</a>, <a class="has-link-grey -link" href="/tags/jfoenix/" rel="tag">jfoenix</a>, <a class="has-link-grey -link" href="/tags/scene-builder/" rel="tag">scene builder</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/categories">分类</a></li>
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
             
-            <li class="is-active"><a href="#" aria-current="page">项目部署</a></li>
-        </ul>
-        </nav>
-    </div>
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
 </div>
 
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-26T09:33:21.675Z">2020-03-26</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/">项目部署</a>
-                </div>
                 
                 
-                <span class="level-item has-text-grey">
-                    
-                    
-                    9 分钟 读完 (大约 1328 个字)
-                </span>
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
+</div>
+
                 
-                
-            </div>
         </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/0326/vue-springboot-deploy02.html">Vue+Springboot项目部署（二）启动</a>
-            
-        </h1>
-        <div class="content">
-            <p>以我的Vue+Springboot项目lovecanfly为例说明。</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/0326/vue-springboot-deploy02.html#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
     </div>
 </div>
 
 
 
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-25T06:48:32.701Z">2020-03-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/">项目部署</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    5 分钟 读完 (大约 706 个字)
-                </span>
-                
-                
-            </div>
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/0326/vue-springboot-deploy02.html">
+                <span class="level-item">Vue+Springboot项目部署（二）启动</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/0325/vue-springboot-deploy01.html">Vue+Springboot项目部署（一）环境准备</a>
-            
-        </h1>
-        <div class="content">
-            <p>项目前后端分别开发测试对调完成后，一方面Vue前端项目编译打包，剩下一堆 js、css 以及 html文件等静态资源文件，另一方面Springboot后端项目构建jar包。</p>
-<p>采用 Nginx + Server 的方式部署～</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/0325/vue-springboot-deploy01.html#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
         
     </div>
 </div>
-
-
-
-
-
-
 
 
 </div>
