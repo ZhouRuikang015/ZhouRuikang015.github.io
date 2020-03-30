@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://zhouruikang.cn/images/og_image.png">
 <meta property="article:published_time" content="2020-03-26T09:33:21.675Z">
-<meta property="article:modified_time" content="2020-03-27T13:14:00.506Z">
+<meta property="article:modified_time" content="2020-03-30T05:03:54.604Z">
 <meta property="article:author" content="醒不来">
 <meta property="article:tag" content="vue">
 <meta property="article:tag" content="springboot">
@@ -142,7 +142,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 分钟 读完 (大约 1328 个字)
+                    9 分钟 读完 (大约 1329 个字)
                 </span>
                 
                 
@@ -158,8 +158,8 @@
             <p>以我的Vue+Springboot项目lovecanfly为例说明。</p>
 <a id="more"></a>
 
-<h2 id="1-后端"><a href="#1-后端" class="headerlink" title="1.后端"></a>1.后端</h2><p>后端采用docker部署。项目使用了mysql数据库，所以除了springboot项目本身的docker部署，为方便也使用docker的mysql容器。</p>
-<p><strong>容器通信：</strong>多个容器之间需要通信，使用以往的–link在互连的容器数量较多时，复杂度会显著增加（官网已不建议）。这里推荐使用自定义bridge网络通信。</p>
+<h2 id="1-后端"><a href="#1-后端" class="headerlink" title="1.后端"></a>1.后端</h2><p>后端采用docker部署。项目使用了mysql数据库，除了springboot项目本身用docker部署，为方便也使用docker的mysql容器。</p>
+<p><strong>容器通信：</strong>多个容器之间需要通信，以往使用的–link方法在互连的容器数量较多时，复杂度会显著增加（官网已不建议）。这里推荐使用自定义bridge网络通信。</p>
 <blockquote>
 <p>bridge是docker默认的网络驱动模型。</p>
 <p>默认的bridge上的容器只能通过子网IP互连，无法通过DNS解析名称或别名。但docker无法保证容器重启后的子网IP地址不变，所以更好的方式是通过别名进行互联。</p>
@@ -169,7 +169,7 @@
 
 
 
-<h3 id="1-2-创建并运行mysql容器"><a href="#1-2-创建并运行mysql容器" class="headerlink" title="1.2 创建并运行mysql容器"></a>1.2 创建并运行mysql容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 拉取 mysql 5.7镜像</span></span><br><span class="line">docker pull mysql:5.7</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建mysql容器</span></span><br><span class="line">docker run -d -p 3306:3306 --network lovecanfly-net --name zrkmysql -e MYSQL_ROOT_PASSWORD=949872703  mysql:5.7</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-创建并运行mysql容器"><a href="#1-2-创建并运行mysql容器" class="headerlink" title="1.2 创建并运行mysql容器"></a>1.2 创建并运行mysql容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 拉取 mysql 5.7镜像</span></span><br><span class="line">docker pull mysql:5.7</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建mysql容器</span></span><br><span class="line">docker run -d -p 3306:3306 --network lovecanfly-net --name zrkmysql -e MYSQL_ROOT_PASSWORD=XXXXXXX  mysql:5.7</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>-d：容器后台运行</p>
