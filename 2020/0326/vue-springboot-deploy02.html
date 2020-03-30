@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://zhouruikang.cn/images/og_image.png">
 <meta property="article:published_time" content="2020-03-26T09:33:21.675Z">
-<meta property="article:modified_time" content="2020-03-30T05:03:54.604Z">
+<meta property="article:modified_time" content="2020-03-30T05:10:38.362Z">
 <meta property="article:author" content="醒不来">
 <meta property="article:tag" content="vue">
 <meta property="article:tag" content="springboot">
@@ -142,7 +142,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 分钟 读完 (大约 1329 个字)
+                    9 分钟 读完 (大约 1330 个字)
                 </span>
                 
                 
@@ -183,22 +183,30 @@
 <li><p>-e：配置信息，此处配置mysql的root用户的登陆密码</p>
 </li>
 </ul>
-<h3 id="1-3-创建并运行springboot容器"><a href="#1-3-创建并运行springboot容器" class="headerlink" title="1.3 创建并运行springboot容器"></a>1.3 创建并运行springboot容器</h3><p><strong>1.在application.properties里更改数据库连接url</strong></p>
+<h3 id="1-3-创建并运行springboot容器"><a href="#1-3-创建并运行springboot容器" class="headerlink" title="1.3 创建并运行springboot容器"></a>1.3 创建并运行springboot容器</h3><ul>
+<li><strong>在application.properties里更改数据库连接url</strong></li>
+</ul>
 <p>更改连接的ip名为之前mysql设置好的容器名。</p>
 <p><img src="http://img.zhouruikang.cn/2020/0326/deploy2-1.png" alt=""></p>
 <p>接下来，一种比较方便的做法是直接一键打包部署，可以参考松哥的这篇文章：<a href="https://mp.weixin.qq.com/s/vSCQLvQBYMYoPhdlO2v3XA">一键部署 Spring Boot 到远程 Docker 容器</a>。这种方法是在IDEA安装docker插件，更改远程连接服务器上的docker配置，使IDEA可远程连接服务器上的docker，一键即可在本地打jar包同时构建镜像。</p>
 <p>但这种做法在更改服务器上docker配置将无密码状态暴露端口给外界，方便自己也方便了他人，有明显的安全风险。我第一次也是这么做的，结果第二天阿里云上的服务器就被攻击安装并运行了挖矿容器～所以不太推荐哈～</p>
-<p><strong>2.打jar包</strong></p>
+<ul>
+<li><strong>打jar包</strong></li>
+</ul>
 <p>选择如图或在项目跟路径输入mvn package打jar包，成功后会在target目录生成jar包</p>
 <p><img src="http://img.zhouruikang.cn/2020/0326/deploy2-2.png" alt=""></p>
-<p><strong>3.编写Dockerfile文件</strong></p>
+<ul>
+<li><strong>编写Dockerfile文件</strong></li>
+</ul>
 <p>新建一个<code>Dockerfile</code>文件，编辑内容如下：</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> java:<span class="number">8</span></span><br><span class="line"><span class="keyword">VOLUME</span><span class="bash"> /tmp</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> target/lovecanfly-0.0.1-SNAPSHOT.jar app.jar</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> bash -c <span class="string">'touch /app.jar'</span></span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"java"</span>,<span class="string">"-jar"</span>,<span class="string">"/app.jar"</span>]</span></span><br></pre></td></tr></table></figure>
 
 <p>简单说明：</p>
 <p>基础镜像使用java，VOLUME 指定了临时文件目录为/tmp，将jar包添加到容器中并更名为app.jar</p>
 <p>按命令行 <code>java -jar /app.jar</code> 运行jar包。</p>
-<p><strong>4.制作镜像及运行容器</strong></p>
+<ul>
+<li><strong>制作镜像及运行容器</strong></li>
+</ul>
 <p>把 <code>lovecanfly-0.0.1-SNAPSHOT.jar app.jar</code> 和 <code>Dockerfile</code>上传至服务器<strong>同一目录</strong>。</p>
 <p>进入该目录，</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t lovecanfly .   # 注意最后的. 不可省, -t 为指定镜像名</span><br></pre></td></tr></table></figure>
@@ -222,7 +230,7 @@
 
 <p>然后 build，在项目dist文件夹中生成带.gz格式静态文件即可。</p>
 <h2 id="3-Nginx配置"><a href="#3-Nginx配置" class="headerlink" title="3.Nginx配置"></a>3.Nginx配置</h2><p>之前在安装nginx时已引入gzip静态模块，<code>vim /usr/local/nginx/conf/nginx.conf</code> 配置nginx</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">gzip_static  on; # 开启静态gzip压缩</span><br><span class="line"></span><br><span class="line">  upstream lovecanfly&#123; # 上游server名称，与 proxy_pass http:&#x2F;&#x2F;lovecanfly 对应</span><br><span class="line">       server 127.0.0.1:8081 weight&#x3D;2;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  server &#123;</span><br><span class="line">      listen       80; #访问端口</span><br><span class="line">      server_name  lovecanfly.zhouruikang.cn; # 访问域名</span><br><span class="line">      </span><br><span class="line">      # 访问项目url: lovecanfly.zhouruikang.cn&#x2F;index.html,</span><br><span class="line">      # 配置 &#x2F; 直接转发 &#x2F;index.html，即访问lovecanfly.zhouruikang.cn即可</span><br><span class="line">      rewrite ^&#x2F;$ &#x2F;index.html redirect; </span><br><span class="line">      </span><br><span class="line"></span><br><span class="line">      location ~ .*\.(js|css|ico|png|jpg|eot|svg|ttf|woff|html|txt|pdf|) &#123;</span><br><span class="line">          root &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;html&#x2F;lovecanfly; #所有静态文件直接读取硬盘</span><br><span class="line">          index index.html index.htm;</span><br><span class="line">          expires 7d; #缓存7天</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      location &#x2F;&#123;</span><br><span class="line">           proxy_pass http:&#x2F;&#x2F;lovecanfly;  # 访问api转发上游server</span><br><span class="line">           tcp_nodelay     on;</span><br><span class="line">           proxy_set_header Host            $host;</span><br><span class="line">           proxy_set_header X-Real-IP       $remote_addr;</span><br><span class="line">           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">gzip_static  on; # 开启静态gzip压缩</span><br><span class="line"></span><br><span class="line">upstream lovecanfly&#123; # 上游server名称，与 proxy_pass http:&#x2F;&#x2F;lovecanfly 对应</span><br><span class="line">    server 127.0.0.1:8081 weight&#x3D;2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen       80; #访问端口</span><br><span class="line">	server_name  lovecanfly.zhouruikang.cn; # 访问域名</span><br><span class="line">	</span><br><span class="line">	# 访问项目url: lovecanfly.zhouruikang.cn&#x2F;index.html,</span><br><span class="line">	# 配置 &#x2F; 直接转发 &#x2F;index.html，即访问lovecanfly.zhouruikang.cn即可</span><br><span class="line">	rewrite ^&#x2F;$ &#x2F;index.html redirect; </span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">  location ~ .*\.(js|css|ico|png|jpg|eot|svg|ttf|woff|html|txt|pdf|) &#123;</span><br><span class="line">  	root &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;html&#x2F;lovecanfly; #所有静态文件直接读取硬盘</span><br><span class="line">  	index index.html index.htm;</span><br><span class="line">  	expires 7d; #缓存7天</span><br><span class="line">  &#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	location &#x2F;&#123;</span><br><span class="line">		proxy_pass http:&#x2F;&#x2F;lovecanfly;  # 访问api转发上游server</span><br><span class="line">		tcp_nodelay     on;</span><br><span class="line">		proxy_set_header Host            $host;</span><br><span class="line">		proxy_set_header X-Real-IP       $remote_addr;</span><br><span class="line">		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>保存后，</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
@@ -230,7 +238,7 @@
 
 
 <h2 id="4-启动项目"><a href="#4-启动项目" class="headerlink" title="4.启动项目"></a>4.启动项目</h2><p>之前前端dist目录下的静态文件，上传至nginx刚配置好的 <code>/usr/local/nginx/html/lovecanfly</code> 路径中。访问刚才设置好的域名<code>server_name  lovecanfly.zhouruikang.cn;</code>即可！</p>
-<p>前提是，要先将域名zhouruikang.cn与服务器对应哦～太简单就省啦。</p>
+<p>前提是，要先将域名zhouruikang.cn与服务器IP对应哦～太简单就省啦。</p>
 
         </div>
         
