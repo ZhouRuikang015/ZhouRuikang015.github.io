@@ -7,24 +7,16 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>java开发桌面应用（三）JavaFx写一个抽屉式导航 - 醒不来</title>
+<title>标签: javafx - excel - 醒不来</title>
 
 
-    <meta name="description" content="有了前两篇的基础后，开始写一个抽屉式导航～ （ 源码记录">
-<meta property="og:type" content="article">
-<meta property="og:title" content="java开发桌面应用（三）JavaFx写一个抽屉式导航">
-<meta property="og:url" content="http://zhouruikang.cn/2020/0330/javafx03-drawer.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="醒不来">
+<meta property="og:url" content="http://zhouruikang.cn/tags/javafx-excel/index.html">
 <meta property="og:site_name" content="醒不来">
-<meta property="og:description" content="有了前两篇的基础后，开始写一个抽屉式导航～ （ 源码记录">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://zhouruikang.cn/images/og_image.png">
-<meta property="article:published_time" content="2020-03-30T06:33:32.727Z">
-<meta property="article:modified_time" content="2020-04-06T05:10:40.386Z">
 <meta property="article:author" content="醒不来">
-<meta property="article:tag" content="javafx">
-<meta property="article:tag" content="java桌面开发">
-<meta property="article:tag" content="fontawesomefx">
-<meta property="article:tag" content="drawerNavigation">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://zhouruikang.cn/images/og_image.png">
 
@@ -126,14 +118,25 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/tags">标签</a></li>
+            <li class="is-active"><a href="#" aria-current="page">javafx - excel</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    
 <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-30T06:33:32.727Z">2020-03-30</time>
+                <time class="level-item has-text-grey" datetime="2020-04-02T04:04:13.764Z">2020-04-02</time>
                 
                 <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/javafx/">javafx</a>
@@ -143,7 +146,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 分钟 读完 (大约 1288 个字)
+                    15 分钟 读完 (大约 2296 个字)
                 </span>
                 
                 
@@ -152,161 +155,33 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                java开发桌面应用（三）JavaFx写一个抽屉式导航
+                <a class="has-link-black-ter" href="/2020/0402/javafx04-excel.html">java开发桌面应用（四）JavaFx与excel交互</a>
             
         </h1>
         <div class="content">
-            <p>有了前两篇的基础后，开始写一个抽屉式导航～ （ <a href="https://github.com/ZhouRuikang015/javafx-havefun/tree/master/javafx02-drawerNavigation">源码记录</a></p>
-<a id="more"></a>
-
-<ul>
-<li>运行效果</li>
-</ul>
-<p><img src="http://img.zhouruikang.cn/2020/0328/javafx3-2r.gif" alt=""></p>
-<p>了解前面的文章有助于接下来理解：</p>
-<hr>
-<ol>
-<li><p><a href="http://www.zhouruikang.cn/2020/0327/javafx01-helloworld.html">java开发桌面应用（一）JavaFx初体验 Jfoenix UI+Scene Builder</a></p>
-</li>
-<li><p><a href="http://www.zhouruikang.cn/2020/0329/javafx02-beautify.html">java开发桌面应用（二）JavaFx美化FontAwesomeFX+CSS</a></p>
-</li>
-</ol>
-<hr>
-<h1 id="1-学习思路"><a href="#1-学习思路" class="headerlink" title="1.学习思路"></a>1.学习思路</h1><p>学习一个新技术，我习惯先从简单的例子去感受它的样子。然后从教学视频中快速了解它常用的操作细节和整体思维逻辑，并与一些现有的该技术的项目进行比对。期间有疑问的地方到处翻博客～一般到这里，即可用它做出类似的项目了。</p>
-<p>当然，前面的一切是为了省时省力，后续如果需要深入解决问题，熟悉官方文档和源码才是更好的选择。</p>
-<ul>
-<li><strong>参考<a href="https://github.com/jfoenixadmin/JFoenix">JFoenix</a>官方的demo</strong></li>
-</ul>
-<p>官方的项目用Gradle管理，demo模块是整体项目的子模块。然而demo模块里的类用到了外部模块的类。IDEA单独运行demo模块不可，运行整体项目前期加载配置太复杂，且后期运行demo时间长（或许是我不太懂Gradle配置吧，运行起来总有点问题）。</p>
-</br>
-
-<p>于是为了省时省力，索性单独新建了个Maven项目，复制粘贴好官方demo，配好依赖。这样运行学习起来方便又快。<a href="https://github.com/ZhouRuikang015/javafx-havefun/tree/master/jfoenix-demo-maven">放在这里</a></p>
-<blockquote>
-<p>注意：demo里运行到了lambda表达式，所以需要将IDEA里两个地方：<code>Project Structure / Modules / Language level</code> 和 <code>设置里 Java Compiler 的 Target bytecode version</code> 改为 8 或 1.8</p>
-</blockquote>
-<ul>
-<li><strong>YouTube视频：</strong><a href="https://www.youtube.com/watch?v=FLkOX4Eez6o&list=PL6gx4Cwl9DGBzfXLWLSYVy8EbTdpGbUIG">JavaFX Java GUI Design Tutorials</a></li>
-</ul>
-<p>基本一看就懂，如果听不太懂英文，右下角有即时识别语言并翻译。</p>
-<ul>
-<li><strong>GitHub项目集合：</strong><a href="https://github.com/mhrimaz/AwesomeJavaFX">AwesomeJavaFX</a></li>
-</ul>
-<p>逛逛找灵感～</p>
-<h1 id="2-JXFHamburger图标动画"><a href="#2-JXFHamburger图标动画" class="headerlink" title="2.JXFHamburger图标动画"></a>2.JXFHamburger图标动画</h1><p><img src="http://img.zhouruikang.cn/2020/0328/javafx3-1.gif" alt=""></p>
-<p>Scene Builder工具里选取 <code>JFXHamburger</code> 组件放到合适的位置，</p>
-<p>然后在controller中固定操作：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FXML</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  HamburgerBackArrowBasicTransition ht = <span class="keyword">new</span> HamburgerBackArrowBasicTransition(hamburger);</span><br><span class="line">  ht.setRate(-<span class="number">1</span>);</span><br><span class="line">  hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, e -&gt; &#123;</span><br><span class="line">    ht.setRate(ht.getRate() * -<span class="number">1</span>);</span><br><span class="line">    ht.play();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>不喜欢<code>HamburgerBackArrowBasicTransition</code> 这种动画切换模式可以试试其他<code>HamburgerXXXXXTransition</code> ～</p>
-<h1 id="3-JFXDrawer抽屉"><a href="#3-JFXDrawer抽屉" class="headerlink" title="3.JFXDrawer抽屉"></a>3.JFXDrawer抽屉</h1><p>希望 <code>JFXHamburger</code> 切换的同时可以带着 <code>JFXDrawer</code> 切换。同时在抽屉打开的情况下，点击顶栏下的空白面板处抽屉也关闭～</p>
-<p><img src="http://img.zhouruikang.cn/2020/0328/javafx3-3.gif" alt=""></p>
-<p>通过demo推荐的 <code>JFXDrawersStack</code> 和 <code>JFXDrawer</code> 来解决，分以下四步：</p>
-<p>​    <strong>1. 新建一个drawer.fxml，用 <code>VBox</code> 组件画一个黑面板</strong></p>
-<p>​        注意长宽大小，背景色等样式一律交由CSS文件。</p>
-<p><img src="http://img.zhouruikang.cn/2020/0328/javafx3-4.png" alt=""></p>
-</br>
-
-<p>​    <strong>2. 将获取的 <code>VBox</code>注入到新new的 <code>JFXDrawer</code></strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> JFXDrawer leftDrawer;</span><br><span class="line"></span><br><span class="line"><span class="meta">@FXML</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  leftDrawer = <span class="keyword">new</span> JFXDrawer();</span><br><span class="line">  VBox vBox = <span class="keyword">null</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    vBox = FXMLLoader.load(getClass().getResource(<span class="string">"/fxml/drawer.fxml"</span>));</span><br><span class="line">  &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line">  leftDrawer.setSidePane(vBox);<span class="comment">//注入</span></span><br><span class="line">  <span class="comment">//leftDrawer.setDirection(JFXDrawer.DrawerDirection.LEFT); 默认LEFT</span></span><br><span class="line">  leftDrawer.setDefaultDrawerSize(<span class="number">160</span>);<span class="comment">//与vBox宽对应</span></span><br><span class="line">  leftDrawer.setResizeContent(<span class="keyword">false</span>);</span><br><span class="line">  leftDrawer.setOverLayVisible(<span class="keyword">false</span>);</span><br><span class="line">  leftDrawer.setResizableOnDrag(<span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</br>
-
-<p>​    <strong>3. 将新new的 <code>JFXDrawersStack</code> 绑定到主面板中</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FXML</span></span><br><span class="line"><span class="keyword">private</span> AnchorPane body;</span><br><span class="line"></span><br><span class="line"><span class="meta">@FXML</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  drawersStack = <span class="keyword">new</span> JFXDrawersStack();</span><br><span class="line">  <span class="comment">//drawersStack.setLayoutX(100); drawer的起始位置x定点，默认0，y同。</span></span><br><span class="line">  body.getChildren().add(drawersStack);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</br>
-
-<p>​    <strong>4. <code>JFXHamburger</code>  通过 <code>JFXDrawersStack</code> 控制 <code>JFXDrawer</code> 的切换</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FXML</span></span><br><span class="line"><span class="keyword">private</span> AnchorPane content; <span class="comment">//content为顶栏下的空白面板</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@FXML</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">//hamburger点击动态切换</span></span><br><span class="line">  ht = <span class="keyword">new</span> HamburgerBackArrowBasicTransition(hamburger);</span><br><span class="line">  ht.setRate(-<span class="number">1</span>);</span><br><span class="line">  hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, e -&gt; &#123;</span><br><span class="line">    toggerDrawer();</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//抽屉打开状态下，点击content抽屉以关闭	</span></span><br><span class="line">  content.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (ht.getRate()!= -<span class="number">1</span>)&#123;</span><br><span class="line">      toggerDrawer();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">toggerDrawer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  ht.setRate(ht.getRate() * -<span class="number">1</span>);</span><br><span class="line">  ht.play();</span><br><span class="line">  drawersStack.toggle(leftDrawer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="4-抽屉栏实现页面切换"><a href="#4-抽屉栏实现页面切换" class="headerlink" title="4.抽屉栏实现页面切换"></a>4.抽屉栏实现页面切换</h1><p>主要思路是：</p>
-<p>​    <strong>1. 抽屉栏里写菜单按钮</strong></p>
-<p><img src="http://img.zhouruikang.cn/2020/0328/javafx3-5.png" alt=""></p>
-<p>注意定义好每个按钮的 <code>Accessible Text</code>属性，方便第三步识别～</p>
-</br>
-
-<p>​    <strong>2. 简单新建多个fxml页面，与按钮对应</strong></p>
-<p>我的是happy、balance、health.fxml～</p>
-</br>
-
-<p>​    <strong>3. 当点击每个菜单按钮的时候，空白面板刷新成不同的fxml</strong></p>
-<p>为了好看和方便指引，在顶栏加入了 title和titleIcon</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FXML</span></span><br><span class="line"><span class="keyword">private</span> Label title;</span><br><span class="line"><span class="meta">@FXML</span></span><br><span class="line"><span class="keyword">private</span> FontAwesomeIconView titleIcon;</span><br><span class="line"></span><br><span class="line"><span class="meta">@FXML</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  leftDrawer = <span class="keyword">new</span> JFXDrawer();</span><br><span class="line">  VBox vBox = <span class="keyword">null</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    vBox = FXMLLoader.load(getClass().getResource(<span class="string">"/fxml/drawer.fxml"</span>));</span><br><span class="line">  &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (Node node: vBox.getChildren())&#123;</span><br><span class="line">    <span class="keyword">if</span> (node.getAccessibleText() != <span class="keyword">null</span>)&#123;</span><br><span class="line">      node.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -&gt; &#123;</span><br><span class="line">        refreshPage(node.getAccessibleText());</span><br><span class="line">        toggerDrawer();</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  leftDrawer.setSidePane(vBox);</span><br><span class="line"></span><br><span class="line">  refreshPage(<span class="string">"Happy"</span>); <span class="comment">//初始化页面</span></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">refreshPage</span><span class="params">(String page)</span></span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    content.getChildren().clear();</span><br><span class="line">    AnchorPane contentPage = FXMLLoader.load(getClass().getResource(<span class="string">"/fxml/"</span> + page + <span class="string">".fxml"</span>));</span><br><span class="line">    content.getChildren().add(contentPage);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (page)&#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">"Happy"</span> : &#123;</span><br><span class="line">        title.setText(<span class="string">"Happy"</span>);</span><br><span class="line">        titleIcon.setGlyphName(<span class="string">"CAMERA"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">"Balance"</span>: &#123;</span><br><span class="line">        title.setText(<span class="string">"Balance"</span>);</span><br><span class="line">        titleIcon.setGlyphName(<span class="string">"BALANCE_SCALE"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">"Health"</span> : &#123;</span><br><span class="line">        title.setText(<span class="string">"Health"</span>);</span><br><span class="line">        titleIcon.setGlyphName(<span class="string">"MEDKIT"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样就做出最开始想要的效果啦～</p>
-<p><img src="http://img.zhouruikang.cn/2020/0328/javafx3-2r.gif" alt=""></p>
-</br>
-
-<p><strong>提示：</strong>所有的样式在css文件里写明～</p>
-<p>以上的controller文件为了说明思路 分别写出，可能显的比较杂乱。完整版见 <a href="https://github.com/ZhouRuikang015/javafx-havefun/tree/master/javafx02-drawerNavigation">Github </a> 。</p>
-
+            <p>有了前三篇的学习基础，这一篇来解决最开始的需求，即同学要求的海绵城市系统评价的桌面应用～</p>
+<p>听起来高大上，实际上very normal～</p>
+<p>即在应用中设计了多个评价模型，监测机构的用户在将监测数据统计到Excel后，使用该应用计算出所需要的控制参数。</p>
         </div>
         
-        <div class="level is-size-7 is-uppercase">
+        
+        <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/drawerNavigation/" rel="tag">drawerNavigation</a>, <a class="has-link-grey -link" href="/tags/fontawesomefx/" rel="tag">fontawesomefx</a>, <a class="has-link-grey -link" href="/tags/javafx/" rel="tag">javafx</a>, <a class="has-link-grey -link" href="/tags/java%E6%A1%8C%E9%9D%A2%E5%BC%80%E5%8F%91/" rel="tag">java桌面开发</a>
+                <a class="button is-size-7 is-light" href="/2020/0402/javafx04-excel.html#more">阅读更多</a>
                 </div>
             </div>
         </div>
         
         
-        
-        <div class="social-share"></div>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
-<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
-        
     </div>
 </div>
 
 
 
-<div class="card">
-    <div class="card-content">
-        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
-        <div class="buttons is-centered">
-            
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-        </div>
-    </div>
-</div>
 
 
 
-<div class="card card-transparent">
-    <div class="level post-navigation is-flex-wrap is-mobile">
-        
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/0402/javafx04-excel.html">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">java开发桌面应用（四）JavaFx与excel交互</span>
-            </a>
-        </div>
-        
-        
-        <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2020/0329/javafx02-beautify.html">
-                <span class="level-item">java开发桌面应用（二）JavaFx美化FontAwesomeFX+CSS</span>
-                <i class="level-item fas fa-chevron-right"></i>
-            </a>
-        </div>
-        
-    </div>
-</div>
 
 
 </div>

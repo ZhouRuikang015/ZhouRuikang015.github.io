@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>java开发桌面应用（四）JavaFx与excel交互 - 醒不来</title>
+
+
+    <meta name="description" content="有了前三篇的学习基础，这一篇来解决最开始的需求，即同学要求的海绵城市系统评价的桌面应用～ 听起来高大上，实际上very normal～ 即在应用中设计了多个评价模型，监测机构的用户在将监测数据统计到Excel后，使用该应用计算出所需要的控制参数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java开发桌面应用（四）JavaFx与excel交互">
+<meta property="og:url" content="http://zhouruikang.cn/2020/0402/javafx04-excel.html">
+<meta property="og:site_name" content="醒不来">
+<meta property="og:description" content="有了前三篇的学习基础，这一篇来解决最开始的需求，即同学要求的海绵城市系统评价的桌面应用～ 听起来高大上，实际上very normal～ 即在应用中设计了多个评价模型，监测机构的用户在将监测数据统计到Excel后，使用该应用计算出所需要的控制参数。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zhouruikang.cn/images/og_image.png">
+<meta property="article:published_time" content="2020-04-02T04:04:13.764Z">
+<meta property="article:modified_time" content="2020-04-06T05:04:06.656Z">
+<meta property="article:author" content="醒不来">
+<meta property="article:tag" content="java桌面开发">
+<meta property="article:tag" content="javafx - excel">
+<meta property="article:tag" content="poi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://zhouruikang.cn/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                nihao
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                
+                <a class="search-input-box navbar-item search " title="Happy Search~" href="javascript:;">
+                    <p >Happy Search~</p>
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-04-02T04:04:13.764Z">2020-04-02</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/javafx/">javafx</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    15 分钟 读完 (大约 2296 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                java开发桌面应用（四）JavaFx与excel交互
+            
+        </h1>
+        <div class="content">
+            <p>有了前三篇的学习基础，这一篇来解决最开始的需求，即同学要求的海绵城市系统评价的桌面应用～</p>
+<p>听起来高大上，实际上very normal～</p>
+<p>即在应用中设计了多个评价模型，监测机构的用户在将监测数据统计到Excel后，使用该应用计算出所需要的控制参数。</p>
+<a id="more"></a>
+
+<p>简而言之，核心即处理Excel里的数据。</p>
+<p>（你没看错，连自动监测都不需要，科研经费真好pian。当然桌面应用只是其中一环，需要 SCI 给项目结题交差啦…</p>
+<p><strong>Fine，这一篇就以其中一个简单的模型来讲述 Javafx怎么与Excel交互吧～</strong>（  <a href="https://github.com/ZhouRuikang015/javafx-havefun/tree/master/javafx03-excel">源码记录</a></p>
+</br>
+
+<p>了解前面的文章有助于接下来理解：</p>
+<hr>
+<ol>
+<li><a href="http://www.zhouruikang.cn/2020/0327/javafx01-helloworld.html">java开发桌面应用（一）JavaFx初体验 Jfoenix UI+Scene Builder</a></li>
+<li><a href="http://www.zhouruikang.cn/2020/0329/javafx02-beautify.html">java开发桌面应用（二）JavaFx美化FontAwesomeFX+CSS</a></li>
+<li><a href="http://www.zhouruikang.cn/2020/0330/javafx03-drawer.html">java开发桌面应用（三）JavaFx写一个抽屉式导航</a></li>
+</ol>
+<hr>
+</br>
+
+<p>以排水分区面源污染模型为例，<br>$$<br>R = (1 - \frac{\sum_{j=1}^pC_jQ_j}{\sum_{i=1}^nC_iQ_i+\sum_{k=1}^qm_kS_k})*100%<br>$$<br>其中：</p>
+<p>​    <strong><em>R</em></strong> - 降雨径流面源污染控制率，%；</p>
+<p>​    <strong><em>C<sub>i</sub>、 C<sub>j</sub></em></strong> - 不同监测点降雨入流及外排污染物平均浓度，mg/L；</p>
+<p>​    <strong><em>Q<sub>i</sub>、 Q<sub>j</sub></em></strong> - 不同监测点降雨入流及外排污染物流量，L/s；</p>
+<p>​    <strong><em>n、p</em></strong> - 入流及外排监测取样总数；</p>
+<p>​    <strong><em>m<sub>k</sub></em></strong> - 不同下垫面场次降雨径流污染物输出系数，mg/m<sup>2</sup> s；</p>
+<p>​    <strong><em>S<sub>k</sub></em></strong> - 不同下垫面面积，m<sup>2</sup>；</p>
+<p>​    <strong><em>q</em></strong> - 下垫面总数；</p>
+<ul>
+<li>运行效果</li>
+</ul>
+<p><img src="http://img.zhouruikang.cn/2020/0328/javafx4-2rr.gif" alt=""></p>
+<h1 id="1-设计Excel模版"><a href="#1-设计Excel模版" class="headerlink" title="1.设计Excel模版"></a>1.设计Excel模版</h1><p>应用是面向用户的，自然需要Excel模版来引导用户填数据～</p>
+<p>提醒用户从第三行输入数据。</p>
+<p>模型公式很简单，分为入流、出流和垫面三组。值得注意的是三组的行数n、p、q是<strong>不确定</strong>的，之后有扫描excel拿数据的亮点…(也不算多亮，稍微动脑子的地方哈～</p>
+<p><img src="http://img.zhouruikang.cn/2020/0328/javafx4-1r.png" alt=""></p>
+<h1 id="2-生成Excel模版给用户"><a href="#2-生成Excel模版给用户" class="headerlink" title="2.生成Excel模版给用户"></a>2.生成Excel模版给用户</h1><p>主要分为两步，</p>
+<ul>
+<li>选择保存的路径及命名</li>
+<li>模版写至Excel并导出</li>
+</ul>
+<h2 id="2-1-选择保存路径及命名"><a href="#2-1-选择保存路径及命名" class="headerlink" title="2.1 选择保存路径及命名"></a>2.1 选择保存路径及命名</h2><p>与文件交互，使用javafx提供的 <code>FileChooser</code> 类 。这里用到它的 <code>showSaveDialog</code> 方法来保存文件。（之后也用它的 <code>showOpenDialog</code> 方法来导入文件</p>
+<p>写一个工具类 <code>FileChooserUtil</code> ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileChooserUtil</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> File <span class="title">chooseSaveFile</span><span class="params">(String defaultFileName, FileChooser.ExtensionFilter... extensionFilter)</span> </span>&#123;</span><br><span class="line">    File file = <span class="keyword">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      FileChooser fileChooser = <span class="keyword">new</span> FileChooser();</span><br><span class="line">      fileChooser.setInitialDirectory(<span class="keyword">new</span> File(System.getProperty(<span class="string">"user.home"</span>)));</span><br><span class="line">      <span class="keyword">if</span> (defaultFileName != <span class="keyword">null</span>) &#123;</span><br><span class="line">        fileChooser.setInitialFileName(defaultFileName);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (extensionFilter != <span class="keyword">null</span>) &#123;</span><br><span class="line">        fileChooser.getExtensionFilters().addAll(extensionFilter);</span><br><span class="line">      &#125;</span><br><span class="line">      file = fileChooser.showSaveDialog(<span class="keyword">new</span> Stage());</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NullPointerException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> file;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>defaultFileName</code>为默认保存的文件名，<code>FileChooser.ExtensionFilter</code>为需要的过滤后文件类型，看一眼 <strong>2.2</strong> 就明白啦。</p>
+<h2 id="2-2-导出Excel模版"><a href="#2-2-导出Excel模版" class="headerlink" title="2.2 导出Excel模版"></a>2.2 导出Excel模版</h2><p> 与Microsoft Office交互一般使用大名鼎鼎的Apache POI。</p>
+<p>但为了节约学习成本，我这里使用的是也很出名Java工具类库 <a href="https://github.com/looly/hutool">Hutool</a> ，它的Excel工具-ExcelUtil对poi进行了简单的封装，很容易便能看懂使用，非常方便～</p>
+<ul>
+<li>引入hutool</li>
+</ul>
+<p>因为ExcelUtil针对Apache POI的封装，因此需要用户自行引入POI库。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">  &lt;dependency&gt;</span><br><span class="line">  	&lt;groupId&gt;cn.hutool&lt;/groupId&gt;</span><br><span class="line">  	&lt;artifactId&gt;hutool-all&lt;/artifactId&gt;</span><br><span class="line">  	&lt;version&gt;5.1.0&lt;/version&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">  &lt;dependency&gt;</span><br><span class="line">  	&lt;groupId&gt;org.apache.poi&lt;/groupId&gt;</span><br><span class="line">  	&lt;artifactId&gt;poi-ooxml&lt;/artifactId&gt;</span><br><span class="line">  	&lt;version&gt;3.17&lt;/version&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将按钮与方法绑定，可在工具中指定，也可直接在fxml文件对应按钮处加上onAction～</li>
+</ul>
+<p><img src="http://img.zhouruikang.cn/2020/0328/javafx4-3.png" alt=""></p>
+<ul>
+<li>Controller 行为响应</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FXML</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">exportAreaResourceTemplate</span><span class="params">(ActionEvent event)</span> </span>&#123;</span><br><span class="line">  String defaultFileName = <span class="string">"AreaResourceTemplate.xlsx"</span>;</span><br><span class="line">  File file = FileChooserUtil.chooseSaveFile(defaultFileName,</span><br><span class="line">                <span class="keyword">new</span> FileChooser.ExtensionFilter(<span class="string">"All Excel"</span>, <span class="string">"*.xlsx"</span>),</span><br><span class="line">                <span class="keyword">new</span> FileChooser.ExtensionFilter(<span class="string">"XLS"</span>, <span class="string">"*.xls"</span>),</span><br><span class="line">                <span class="keyword">new</span> FileChooser.ExtensionFilter(<span class="string">"XLSX"</span>, <span class="string">"*.xlsx"</span>));</span><br><span class="line">  <span class="keyword">if</span> (file != <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="comment">//开启IO</span></span><br><span class="line">    ExcelWriter writer = ExcelUtil.getWriter(file.getPath());</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//写入数据</span></span><br><span class="line">    List&lt;String&gt; row1 = CollUtil.newArrayList(<span class="string">"入流流量Qi (L/s)"</span>, <span class="string">"入流污染物浓度Ci (mg/L)"</span>, <span class="string">"出流流量Qj (L/s)"</span>, <span class="string">"出流污染物浓度Cj (mg/L)"</span>, <span class="string">"垫面系数Mk (mg/m2 s)"</span>, <span class="string">"垫面面积Sk (m2)"</span>);</span><br><span class="line">    List&lt;String&gt; row2 = CollUtil.newArrayList(<span class="string">"22"</span>, <span class="string">"20"</span>, <span class="string">"6"</span>, <span class="string">"5"</span>, <span class="string">"6"</span>, <span class="string">"5"</span>);</span><br><span class="line">    List&lt;String&gt; row3 = CollUtil.newArrayList(<span class="string">"7"</span>, <span class="string">"8"</span>, <span class="string">"6.5"</span>, <span class="string">"8"</span>, <span class="string">"16"</span>, <span class="string">"5"</span>);</span><br><span class="line">    List&lt;String&gt; row4 = CollUtil.newArrayList(<span class="string">"22"</span>, <span class="string">"20"</span>, <span class="string">"4"</span>, <span class="string">"11"</span>, <span class="string">"7"</span>, <span class="string">"6"</span>);</span><br><span class="line">    List&lt;String&gt; row5 = CollUtil.newArrayList(<span class="string">"5"</span>, <span class="string">"8"</span>);</span><br><span class="line">    List&lt;List&lt;String&gt;&gt; rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//调整excel格式</span></span><br><span class="line">    writer.merge(<span class="number">5</span>, <span class="string">"删除下方数据行(第三行开始)重新填数据即可"</span>);</span><br><span class="line">    writer.setColumnWidth(<span class="number">0</span>,<span class="number">25</span>);</span><br><span class="line">    writer.setColumnWidth(<span class="number">1</span>,<span class="number">25</span>);</span><br><span class="line">    writer.setColumnWidth(<span class="number">2</span>,<span class="number">25</span>);</span><br><span class="line">    writer.setColumnWidth(<span class="number">3</span>,<span class="number">25</span>);</span><br><span class="line">    writer.setColumnWidth(<span class="number">4</span>,<span class="number">25</span>);</span><br><span class="line">    writer.setColumnWidth(<span class="number">5</span>,<span class="number">25</span>);</span><br><span class="line">    writer.write(rows, <span class="keyword">true</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//关闭IO</span></span><br><span class="line">    writer.close();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="3-用户导入excel"><a href="#3-用户导入excel" class="headerlink" title="3.用户导入excel"></a>3.用户导入excel</h1><p>如果只按结果考虑，接下来的步骤分为导入excel文件和直接计算输出结果两步即可。</p>
+<p>但站在用户角度，我加入了导入数据的表格显示，这样有几点好处</p>
+<ul>
+<li>方便用户检查数据是否导入完整（谁知道他按不按模板格式来。。。或者有漏错之类</li>
+<li>提高用户体验（看着舒服</li>
+</ul>
+<h2 id="3-1-用户界面表格显示"><a href="#3-1-用户界面表格显示" class="headerlink" title="3.1 用户界面表格显示"></a>3.1 用户界面表格显示</h2><p>重点是使用到 <code>JFXTreeTableView</code> 组件。</p>
+<p>由于入流、出流和垫面三组表格除行数外，结构完全相同，取入流组说明。</p>
+<p>以下为 <code>JFXTreeTableView</code>  的<strong>初始化</strong>，别问为什么，它设计就是让你这么用的哈。</p>
+<p><img src="http://img.zhouruikang.cn/2020/0328/javafx4-4.png" alt=""></p>
+<ul>
+<li>每行有两个数据，先准备一个entity带两个属性表示每一行～</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DoubleAttribute</span> <span class="keyword">extends</span> <span class="title">RecursiveTreeObject</span>&lt;<span class="title">DoubleAttribute</span>&gt; </span>&#123;</span><br><span class="line">  StringProperty first;</span><br><span class="line">  StringProperty second;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">DoubleAttribute</span><span class="params">(String first, String second)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.first = <span class="keyword">new</span> SimpleStringProperty(first);</span><br><span class="line">    <span class="keyword">this</span>.second = <span class="keyword">new</span> SimpleStringProperty(second);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getFirst</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> first.get();&#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> StringProperty <span class="title">firstProperty</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> first;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFirst</span><span class="params">(String first)</span> </span>&#123;<span class="keyword">this</span>.first.set(first);&#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getSecond</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> second.get();&#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> StringProperty <span class="title">secondProperty</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> second;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSecond</span><span class="params">(String second)</span> </span>&#123;<span class="keyword">this</span>.second.set(second);&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>初始化表两列的表头，并定义表身中每行每列的数据怎么获取～</li>
+</ul>
+<p>即 DoubleAttribute的 first 和 second 属性分别表示每行的 <strong><em>Q<sub>i</sub>、 C<sub>i</sub></em></strong> 。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FXML</span></span><br><span class="line"><span class="keyword">private</span> JFXTreeTableView&lt;DoubleAttribute&gt; inTable;</span><br><span class="line"></span><br><span class="line"><span class="meta">@FXML</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  JFXTreeTableColumn&lt;DoubleAttribute, String&gt; qi = <span class="keyword">new</span> JFXTreeTableColumn&lt;&gt;   (<span class="string">"Qi(L/s)"</span>);</span><br><span class="line">  qi.setPrefWidth(<span class="number">83</span>);</span><br><span class="line">  qi.setCellValueFactory(<span class="keyword">new</span> Callback&lt;TreeTableColumn.CellDataFeatures&lt;DoubleAttribute, String&gt;, ObservableValue&lt;String&gt;&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ObservableValue&lt;String&gt; <span class="title">call</span><span class="params">(TreeTableColumn.CellDataFeatures&lt;DoubleAttribute, String&gt; param)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//重点就是这个</span></span><br><span class="line">      <span class="keyword">return</span> param.getValue().getValue().firstProperty();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  JFXTreeTableColumn&lt;DoubleAttribute, String&gt; ci = <span class="keyword">new</span> JFXTreeTableColumn&lt;&gt;(<span class="string">"Ci(mg/L)"</span>);</span><br><span class="line">  ci.setPrefWidth(<span class="number">83</span>);</span><br><span class="line">  ci.setCellValueFactory(<span class="keyword">new</span> Callback&lt;TreeTableColumn.CellDataFeatures&lt;DoubleAttribute, String&gt;, ObservableValue&lt;String&gt;&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ObservableValue&lt;String&gt; <span class="title">call</span><span class="params">(TreeTableColumn.CellDataFeatures&lt;DoubleAttribute, String&gt; param)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> param.getValue().getValue().secondProperty();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  </span><br><span class="line">  inTable.getColumns().setAll(qi, ci);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-2-选择目标文件"><a href="#3-2-选择目标文件" class="headerlink" title="3.2 选择目标文件"></a>3.2 选择目标文件</h2><p>同样在工具类 <code>FileChooserUtil</code>  中，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileChooserUtil</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> File <span class="title">chooseOpenFile</span><span class="params">(FileChooser.ExtensionFilter... extensionFilter)</span> </span>&#123;</span><br><span class="line">    File file = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      FileChooser fileChooser = <span class="keyword">new</span> FileChooser();</span><br><span class="line">      fileChooser.setInitialDirectory(<span class="keyword">new</span> File(System.getProperty(<span class="string">"user.home"</span>)));</span><br><span class="line">      <span class="keyword">if</span> (extensionFilter != <span class="keyword">null</span>) &#123;</span><br><span class="line">        fileChooser.getExtensionFilters().addAll(extensionFilter);</span><br><span class="line">      &#125;</span><br><span class="line">      file = fileChooser.showOpenDialog(<span class="keyword">new</span> Stage());</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NullPointerException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> file;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-3-导入Excel文件"><a href="#3-3-导入Excel文件" class="headerlink" title="3.3 导入Excel文件"></a>3.3 导入Excel文件</h2><p>在导入Excel的同时，我做了三件事，</p>
+<ul>
+<li>每行数据按 <strong>DoubleAttribute</strong> 分别收集至不同list，后set进不同的 <code>JFXTreeTableView</code> 表格</li>
+<li>用 <strong>inSum、outSum、smSum</strong> 分别统计$\sum_{i=1}^nC_iQ_i $、 $\sum_{j=1}^pC_jQ_j $、$ \sum_{k=1}^qm_kS_k $，便于之后 <strong>3.4</strong> 直接计算给出结果</li>
+<li>用  <strong>inRowsCount、outRowsCount、smRowsCount</strong> 分别统计每组行数，并分别set进对应的 <code>JFXTextField</code> 组件 <strong>inRowsCountText、outRowsCountText、smRowsCountText</strong> 显示在表格下方</li>
+</ul>
+<p>下面的步骤包含三组表，可能有点长，但大多重复比较好理解，我尽量注释～</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FXML</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">importAreaResourceExcel</span><span class="params">(ActionEvent event)</span> </span>&#123;</span><br><span class="line">  File file = FileChooserUtil.chooseOpenFile(</span><br><span class="line">    <span class="keyword">new</span> FileChooser.ExtensionFilter(<span class="string">"All Excel"</span>, <span class="string">"*.xlsx"</span>),</span><br><span class="line">    <span class="keyword">new</span> FileChooser.ExtensionFilter(<span class="string">"XLS"</span>, <span class="string">"*.xls"</span>),</span><br><span class="line">    <span class="keyword">new</span> FileChooser.ExtensionFilter(<span class="string">"XLSX"</span>, <span class="string">"*.xlsx"</span>));</span><br><span class="line">  <span class="keyword">if</span> (file == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//读取所有的数据</span></span><br><span class="line">  ExcelReader reader = ExcelUtil.getReader(file);</span><br><span class="line">  List&lt;List&lt;Object&gt;&gt; readAll = reader.read();</span><br><span class="line">				</span><br><span class="line">  <span class="comment">//初始化统计值    	</span></span><br><span class="line">  inSum = outSum = smSum = <span class="number">0</span>;</span><br><span class="line">  inRowsCount = outRowsCount = smRowsCount = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">  <span class="comment">//初始化按每行数据DoubleAttribute的List</span></span><br><span class="line">  ObservableList&lt;DoubleAttribute&gt; inCols = FXCollections.observableArrayList();</span><br><span class="line">  ObservableList&lt;DoubleAttribute&gt; outCols = FXCollections.observableArrayList();</span><br><span class="line">  ObservableList&lt;DoubleAttribute&gt; smCols = FXCollections.observableArrayList();</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//从第三行开始处理数据</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; readAll.size() ; i++) &#123;</span><br><span class="line">    List&lt;Object&gt; readLine = readAll.get(i);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//前文提到的亮点来了，由于n、p、q是不确定的，读取时可能有空值，用这种方法确认不为空再读取</span></span><br><span class="line">    <span class="keyword">if</span> (readLine.size() &gt; <span class="number">1</span> &amp;&amp; readLine.get(<span class="number">0</span>) != <span class="keyword">null</span> &amp;&amp; readLine.get(<span class="number">1</span>) != <span class="keyword">null</span>)&#123;</span><br><span class="line">      String a = String.valueOf(readLine.get(<span class="number">0</span>));</span><br><span class="line">      String b = String.valueOf(readLine.get(<span class="number">1</span>));</span><br><span class="line">      <span class="comment">//入流的每行数据按DoubleAttribute注入到list</span></span><br><span class="line">      inCols.add(<span class="keyword">new</span> DoubleAttribute(a,b));</span><br><span class="line">      <span class="comment">//统计入流集</span></span><br><span class="line">      inSum += Double.valueOf(a) * Double.valueOf(b);</span><br><span class="line">      <span class="comment">//统计行数</span></span><br><span class="line">      inRowsCount++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (readLine.size() &gt; <span class="number">3</span> &amp;&amp; readLine.get(<span class="number">2</span>) != <span class="keyword">null</span> &amp;&amp; readLine.get(<span class="number">3</span>) != <span class="keyword">null</span>)&#123;</span><br><span class="line">      String a = String.valueOf(readLine.get(<span class="number">2</span>));</span><br><span class="line">      String b = String.valueOf(readLine.get(<span class="number">3</span>));</span><br><span class="line">      outCols.add(<span class="keyword">new</span> DoubleAttribute(a,b));</span><br><span class="line">      outSum += Double.valueOf(a) * Double.valueOf(b);</span><br><span class="line">      outRowsCount++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (readLine.size() &gt; <span class="number">5</span> &amp;&amp; readLine.get(<span class="number">4</span>) != <span class="keyword">null</span> &amp;&amp; readLine.get(<span class="number">5</span>) != <span class="keyword">null</span>)&#123;</span><br><span class="line">      String a = String.valueOf(readLine.get(<span class="number">4</span>));</span><br><span class="line">      String b = String.valueOf(readLine.get(<span class="number">5</span>));</span><br><span class="line">      smCols.add(<span class="keyword">new</span> DoubleAttribute(a,b));</span><br><span class="line">      smSum += Double.valueOf(a) * Double.valueOf(b);</span><br><span class="line">      smRowsCount++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//带着每行数据的list set到JFXTreeTableView表格</span></span><br><span class="line">  <span class="keyword">final</span> TreeItem&lt;DoubleAttribute&gt; rootInCols = <span class="keyword">new</span> RecursiveTreeItem&lt;DoubleAttribute&gt;(inCols, RecursiveTreeObject::getChildren);</span><br><span class="line">  inTable.setRoot(rootInCols);</span><br><span class="line">  inTable.setShowRoot(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">final</span> TreeItem&lt;DoubleAttribute&gt; rootOutCols = <span class="keyword">new</span> RecursiveTreeItem&lt;DoubleAttribute&gt;(outCols, RecursiveTreeObject::getChildren);</span><br><span class="line">  outTable.setRoot(rootOutCols);</span><br><span class="line">  outTable.setShowRoot(<span class="keyword">false</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">final</span> TreeItem&lt;DoubleAttribute&gt; rootSmCols = <span class="keyword">new</span> RecursiveTreeItem&lt;DoubleAttribute&gt;(smCols, RecursiveTreeObject::getChildren);</span><br><span class="line">  smTable.setRoot(rootSmCols);</span><br><span class="line">  smTable.setShowRoot(<span class="keyword">false</span>);</span><br><span class="line">	</span><br><span class="line">  <span class="comment">//每个表格下的JFXTextField组件显示行数</span></span><br><span class="line">  inRowsCountText.setText(<span class="string">"共"</span> + inRowsCount + <span class="string">"行"</span>);</span><br><span class="line">  inRowsCountText.setVisible(<span class="keyword">true</span>);</span><br><span class="line">  outRowsCountText.setText(<span class="string">"共"</span> + outRowsCount + <span class="string">"行"</span>);</span><br><span class="line">  outRowsCountText.setVisible(<span class="keyword">true</span>);</span><br><span class="line">  smRowsCountText.setText(<span class="string">"共"</span> + smRowsCount + <span class="string">"行"</span>);</span><br><span class="line">  smRowsCountText.setVisible(<span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-4-计算结果"><a href="#3-4-计算结果" class="headerlink" title="3.4 计算结果"></a>3.4 计算结果</h2><p>就非常简单了，前面已统计好，只需一步</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FXML</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">calAreaSourceRate</span><span class="params">(ActionEvent event)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">double</span> res = (<span class="number">1</span> - outSum/(inSum + smSum))*<span class="number">100</span>;</span><br><span class="line">  areaRValue.setText(String.format(<span class="string">"%.2f"</span>, res));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a>4.总结</h1><p>到此为止，以上四篇就是我做这个应用的完整思路和学习记录啦～</p>
+<p>最后的交付，</p>
+<p><img src="http://img.zhouruikang.cn/2020/0328/javafx4-5.gif" alt=""></p>
+<p>（这个就不放源码啦，一是关键点都发了没有参考必要，二是实在算不上一个好作品不好意思哈哈</p>
+<p>总的来说，用起来并不难，思维方式也很容易理解。</p>
+<p>麻烦的是寻找未知事物和独立解决问题的过程，</p>
+<p>这也是一种锻炼吧～</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/javafx-excel/" rel="tag">javafx - excel</a>, <a class="has-link-grey -link" href="/tags/java%E6%A1%8C%E9%9D%A2%E5%BC%80%E5%8F%91/" rel="tag">java桌面开发</a>, <a class="has-link-grey -link" href="/tags/poi/" rel="tag">poi</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/0330/javafx03-drawer.html">
+                <span class="level-item">java开发桌面应用（三）JavaFx写一个抽屉式导航</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/avatar.png" alt="醒不来">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        醒不来
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Just for fun
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>GuangZhou, China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            7
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            2
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            12
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/ZhouRuikang015" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Twitter" href="https://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Dribbble" href="https://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/javafx/">
+            <span class="level-start">
+                <span class="level-item">javafx</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/">
+            <span class="level-start">
+                <span class="level-item">项目部署</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+<!--                 if (thumbnail & post.link) -->
+            <a href="/2020/0402/javafx04-excel.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（四）JavaFx与excel交互">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-02T04:04:13.764Z">2020-04-02</time></div>
+                    <a href="/2020/0402/javafx04-excel.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">java开发桌面应用（四）JavaFx与excel交互</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/javafx/">javafx</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+<!--                 if (thumbnail & post.link) -->
+            <a href="/2020/0330/javafx03-drawer.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（三）JavaFx写一个抽屉式导航">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-30T06:33:32.727Z">2020-03-30</time></div>
+                    <a href="/2020/0330/javafx03-drawer.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">java开发桌面应用（三）JavaFx写一个抽屉式导航</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/javafx/">javafx</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+<!--                 if (thumbnail & post.link) -->
+            <a href="/2020/0329/javafx02-beautify.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（二）JavaFx美化FontAwesomeFX+CSS">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-29T15:35:52.410Z">2020-03-29</time></div>
+                    <a href="/2020/0329/javafx02-beautify.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">java开发桌面应用（二）JavaFx美化FontAwesomeFX+CSS</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/javafx/">javafx</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+<!--                 if (thumbnail & post.link) -->
+            <a href="/2020/0327/javafx01-helloworld.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（一）JavaFx初体验Jfoenix UI+Scene Builder">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-27T15:07:18.779Z">2020-03-27</time></div>
+                    <a href="/2020/0327/javafx01-helloworld.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">java开发桌面应用（一）JavaFx初体验Jfoenix UI+Scene Builder</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/javafx/">javafx</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+<!--                 if (thumbnail & post.link) -->
+            <a href="/2020/0326/vue-springboot-deploy02.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Vue+Springboot项目部署（二）启动">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-26T09:33:21.675Z">2020-03-26</time></div>
+                    <a href="/2020/0326/vue-springboot-deploy02.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue+Springboot项目部署（二）启动</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/">项目部署</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/css/">
+                        <span class="tag">css</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/drawerNavigation/">
+                        <span class="tag">drawerNavigation</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/fontawesomefx/">
+                        <span class="tag">fontawesomefx</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javafx/">
+                        <span class="tag">javafx</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javafx-excel/">
+                        <span class="tag">javafx - excel</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java%E6%A1%8C%E9%9D%A2%E5%BC%80%E5%8F%91/">
+                        <span class="tag">java桌面开发</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jfoenix/">
+                        <span class="tag">jfoenix</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/poi/">
+                        <span class="tag">poi</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/scene-builder/">
+                        <span class="tag">scene builder</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/springboot/">
+                        <span class="tag">springboot</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%83%A8%E7%BD%B2/">
+                        <span class="tag">部署</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+<!--                 if (thumbnail & post.link) -->
+            <a href="/2020/0402/javafx04-excel.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（四）JavaFx与excel交互">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-02T04:04:13.764Z">2020-04-02</time></div>
+                    <a href="/2020/0402/javafx04-excel.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">java开发桌面应用（四）JavaFx与excel交互</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/javafx/">javafx</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+<!--                 if (thumbnail & post.link) -->
+            <a href="/2020/0330/javafx03-drawer.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（三）JavaFx写一个抽屉式导航">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-30T06:33:32.727Z">2020-03-30</time></div>
+                    <a href="/2020/0330/javafx03-drawer.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">java开发桌面应用（三）JavaFx写一个抽屉式导航</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/javafx/">javafx</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+<!--                 if (thumbnail & post.link) -->
+            <a href="/2020/0329/javafx02-beautify.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（二）JavaFx美化FontAwesomeFX+CSS">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-29T15:35:52.410Z">2020-03-29</time></div>
+                    <a href="/2020/0329/javafx02-beautify.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">java开发桌面应用（二）JavaFx美化FontAwesomeFX+CSS</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/javafx/">javafx</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+<!--                 if (thumbnail & post.link) -->
+            <a href="/2020/0327/javafx01-helloworld.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（一）JavaFx初体验Jfoenix UI+Scene Builder">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-27T15:07:18.779Z">2020-03-27</time></div>
+                    <a href="/2020/0327/javafx01-helloworld.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">java开发桌面应用（一）JavaFx初体验Jfoenix UI+Scene Builder</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/javafx/">javafx</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+<!--                 if (thumbnail & post.link) -->
+            <a href="/2020/0326/vue-springboot-deploy02.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Vue+Springboot项目部署（二）启动">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-26T09:33:21.675Z">2020-03-26</time></div>
+                    <a href="/2020/0326/vue-springboot-deploy02.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue+Springboot项目部署（二）启动</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/">项目部署</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/css/">
+                        <span class="tag">css</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/drawerNavigation/">
+                        <span class="tag">drawerNavigation</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/fontawesomefx/">
+                        <span class="tag">fontawesomefx</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javafx/">
+                        <span class="tag">javafx</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/javafx-excel/">
+                        <span class="tag">javafx - excel</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java%E6%A1%8C%E9%9D%A2%E5%BC%80%E5%8F%91/">
+                        <span class="tag">java桌面开发</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jfoenix/">
+                        <span class="tag">jfoenix</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/poi/">
+                        <span class="tag">poi</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/scene-builder/">
+                        <span class="tag">scene builder</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/springboot/">
+                        <span class="tag">springboot</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%83%A8%E7%BD%B2/">
+                        <span class="tag">部署</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    nihao
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 醒不来&nbsp;
+                & <a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鄂ICP备20003583号</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZhouRuikang015">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://zhouruikang.cn',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":1},"log":false});</script></body>
+</html>
