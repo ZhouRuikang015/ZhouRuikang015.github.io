@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" id="svg2" viewBox="0 0 482.89 288.6" version="1.0">
+  <g id="layer1" transform="translate(539.3 -343.06)">
+    <g id="g4167">
+      <rect id="rect3170" ry="29.294" height="278.6" width="472.89" y="348.06" x="-534.3" fill="#ffe397"/>
+      <path id="path3152" stroke="#000" stroke-width="6.25" fill="none" d="m-345.71 477.36v-80.71"/>
+      <path id="path3154" stroke="#000" stroke-width="6.25" fill="none" d="m-318.57 483.08l15-37.86"/>
+      <path id="path3156" stroke="#000" stroke-width="6.25" fill="none" d="m-297.14 500.22l53.57-80"/>
+      <path id="path3158" stroke="#000" stroke-width="6.25" fill="none" d="m-276.43 513.79l49.27-28.61"/>
+      <path id="path3160" stroke="#000" stroke-width="6.25" fill="none" d="m-377.27 484l-15.92-37.44"/>
+      <path id="path3162" stroke="#000" stroke-width="6.25" fill="none" d="m-401.43 501.65l-72.14-70"/>
+      <path id="path3164" stroke="#000" stroke-width="6.25" fill="none" d="m-413.57 525.93l-64.79-20.83"/>
+      <path id="path2179" d="m-250.71 533.43a92.143 57.5 0 1 1 0 -0.05" transform="matrix(.88748 0 0 1.1675 -39.651 -83.997)" stroke="#000" stroke-width="6.1401" fill="#ffdb00"/>
+      <path id="path3168" fill-rule="evenodd" fill="#deffff" d="m-534.29 581.65c26.99-33.35 67.69-44.63 108.89-42.72 25.21 1.16 47.18 13.48 68.26 26.29 24.64-29.62 58.75-51 97.71-50.71 35.44 0.26 57.43 10.57 83 35 18.21-17.88 42.6-27.02 67.39-31.77 16.67-3.19 32.219-1.61 48.326 1.77l0.105-0.51v106.07l-473.76 1.01 0.08-44.43z"/>
+      <path id="path2172" stroke="#000" stroke-width="6.25" fill="none" d="m-534.29 581.65c26.99-33.35 67.69-44.63 108.89-42.72 25.21 1.16 47.18 13.48 68.26 26.29 24.64-29.62 58.75-51 97.71-50.71 35.44 0.26 57.43 10.57 83 35 18.21-17.88 42.6-27.02 67.39-31.77 16.67-3.19 32.219-1.61 48.326 1.77"/>
+      <rect id="rect3166" ry="36.365" height="278.6" width="472.89" stroke="#000" y="348.06" x="-534.3" stroke-width="10" fill="none"/>
+    </g>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Sky scene</dc:title>
+        <dc:date>2010-06-15T20:46:07</dc:date>
+        <dc:description>A sky scene, with the sun and clouds.</dc:description>
+        <dc:source>http://openclipart.org/detail/67033/sky-scene-by-laobc</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>laobc</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>clip art</rdf:li>
+            <rdf:li>clipart</rdf:li>
+            <rdf:li>cloud</rdf:li>
+            <rdf:li>scene</rdf:li>
+            <rdf:li>sky</rdf:li>
+            <rdf:li>summer</rdf:li>
+            <rdf:li>summer2010</rdf:li>
+            <rdf:li>sun</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

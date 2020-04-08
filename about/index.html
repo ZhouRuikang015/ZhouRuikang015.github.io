@@ -28,7 +28,7 @@
 
 
 
-<link rel="icon" href="/images/favicon.svg">
+<link rel="icon" href="/images/logo_sky.svg">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -72,14 +72,19 @@
 
 <link rel="stylesheet" href="/css/style.css">
 </head>
+<!--<body class="is-3-column">-->
 <body class="is-3-column">
     <nav class="navbar navbar-main">
     <div class="container">
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
-            
-                nihao
-            
+                <img src="/images/logo_sky.svg" alt="about" height="28">
+                <span style="font-size: 16px;width: 100px;font-weight: 600;padding-left: 10px">醒不来</span>
+            <!--
+                
+                    醒不来
+                
+            -->
             </a>
         </div>
         <div class="navbar-menu">
@@ -92,12 +97,6 @@
                 <a class="navbar-item"
                 href="/archives">Archives</a>
                 
-                <a class="navbar-item"
-                href="/categories">Categories</a>
-                
-                <a class="navbar-item"
-                href="/tags">Tags</a>
-                
                 <a class="navbar-item is-active"
                 href="/about">About</a>
                 
@@ -106,12 +105,21 @@
             <div class="navbar-end">
                 
                 
-                
                 <a class="search-input-box navbar-item search " title="Happy Search~" href="javascript:;">
                     <p >Happy Search~</p>
                     <i class="fas fa-search"></i>
                 </a>
                 
+                
+                        
+                        <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="mailto:zhouruikang015@163.com">
+                            
+                                <img src="/images/email.svg" style="width: 20px; height: 20px;">
+                                <!--                        <i class="fab fa-envelope-o" style="color: #249a65"></i>-->
+                            
+                        </a>
+                        
+                    
             </div>
         </div>
     </div>
@@ -169,13 +177,34 @@
 
 
 
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: '82ufSlqCcI94zfqi8v8B2lXK-gzGzoHsz',
+        app_key: 'bgwcuWlfkNA91EHSxg5F6Bk5',
+        placeholder: 'Say something...'
+    });
+</script>
+
+    </div>
+</div>
 </div>
                 
 
 
 
 
-<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
     
         
 <div class="card widget">
@@ -184,22 +213,23 @@
             <div class="level-item has-text-centered" style="flex-shrink: 1">
                 <div>
                     
-                    <figure class="image is-128x128 has-mb-6">
-                        <img class="" src="/images/avatar.png" alt="醒不来">
+                    <figure class="image  has-mb-6" style="padding: 10px 0">
+                        <img class="" src="/images/sleep.jpeg" alt="醒不来">
                     </figure>
                     
-                    <p class="is-size-4 is-block">
+                    <p class="is-size-4 is-block" style="padding-bottom: 5px">
                         醒不来
                     </p>
                     
                     
-                    <p class="is-size-6 is-block">
+                    <p class="is-size-6 is-block" style="margin-bottom: 3px">
+                        <i class="fa fa-bicycle has-mr-7"></i>
                         Just for fun
                     </p>
                     
                     
                     <p class="is-size-6 is-flex is-flex-center has-text-grey">
-                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <i class="fa fa-map-marker-alt has-mr-7"></i>
                         <span>GuangZhou, China</span>
                     </p>
                     
@@ -250,46 +280,57 @@
                 关注我</a>
         </div>
         
+
+
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
-                title="Github" href="https://github.com/ppoffice">
+            <!--
+            <div class="level is-mobile">
+
                 
-                <i class="fab fa-github"></i>
+                <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                    title="Github" href="https://github.com/ppoffice">
+                    
+                    <i class="fab fa-github"></i>
+                    
+                </a>
                 
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
-                title="Facebook" href="https://facebook.com">
+                <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                    title="Facebook" href="https://facebook.com">
+                    
+                    <i class="fab fa-facebook"></i>
+                    
+                </a>
                 
-                <i class="fab fa-facebook"></i>
+                <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                    title="Twitter" href="https://twitter.com">
+                    
+                    <i class="fab fa-twitter"></i>
+                    
+                </a>
                 
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
-                title="Twitter" href="https://twitter.com">
+                <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                    title="Dribbble" href="https://dribbble.com">
+                    
+                    <i class="fab fa-dribbble"></i>
+                    
+                </a>
                 
-                <i class="fab fa-twitter"></i>
+                <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                    title="RSS" href="/">
+                    
+                    <i class="fas fa-rss"></i>
+                    
+                </a>
                 
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
-                title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
-                title="RSS" href="/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
+            -->
+<!--            <a class="level-item button is-white is-marginless" target="_blank" title="github" href="https://github.com/ZhouRuikang015" name>-->
+<!--                <img src="/images/github.svg" style="width: 20px; height: 20px;">-->
+<!--            </a>-->
+<!--            <a class="level-item button is-white is-marginless" target="_blank" title="email" href="mailto:zhouruikang015@163.com" name>-->
+<!--                <img src="/images/email.svg" style="width: 20px; height: 20px;">-->
+<!--            </a>-->
+<!--        </div>-->
         
     </div>
 </div>
@@ -337,10 +378,9 @@
         
         <article class="media">
             
-<!--                 if (thumbnail & post.link) -->
             <a href="/2020/0402/javafx04-excel.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（四）JavaFx与excel交互">
+                    <img class="thumbnail" src="/thumbnail/recent_default/0.jpg" alt="java开发桌面应用（四）JavaFx与excel交互">
                 </p>
             </a>
             
@@ -357,10 +397,9 @@
         
         <article class="media">
             
-<!--                 if (thumbnail & post.link) -->
             <a href="/2020/0330/javafx03-drawer.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（三）JavaFx写一个抽屉式导航">
+                    <img class="thumbnail" src="/thumbnail/recent_default/1.jpg" alt="java开发桌面应用（三）JavaFx写一个抽屉式导航">
                 </p>
             </a>
             
@@ -377,10 +416,9 @@
         
         <article class="media">
             
-<!--                 if (thumbnail & post.link) -->
             <a href="/2020/0329/javafx02-beautify.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（二）JavaFx美化FontAwesomeFX+CSS">
+                    <img class="thumbnail" src="/thumbnail/recent_default/2.jpg" alt="java开发桌面应用（二）JavaFx美化FontAwesomeFX+CSS">
                 </p>
             </a>
             
@@ -397,10 +435,9 @@
         
         <article class="media">
             
-<!--                 if (thumbnail & post.link) -->
             <a href="/2020/0327/javafx01-helloworld.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（一）JavaFx初体验Jfoenix UI+Scene Builder">
+                    <img class="thumbnail" src="/thumbnail/recent_default/3.jpg" alt="java开发桌面应用（一）JavaFx初体验Jfoenix UI+Scene Builder">
                 </p>
             </a>
             
@@ -417,10 +454,9 @@
         
         <article class="media">
             
-<!--                 if (thumbnail & post.link) -->
             <a href="/2020/0326/vue-springboot-deploy02.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Vue+Springboot项目部署（二）启动">
+                    <img class="thumbnail" src="/thumbnail/recent_default/4.jpg" alt="Vue+Springboot项目部署（二）启动">
                 </p>
             </a>
             
@@ -476,98 +512,10 @@
         
             <div class="card widget">
     <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                标签
-            </h3>
-            <div class="field is-grouped is-grouped-multiline">
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/css/">
-                        <span class="tag">css</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/drawerNavigation/">
-                        <span class="tag">drawerNavigation</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/fontawesomefx/">
-                        <span class="tag">fontawesomefx</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/javafx/">
-                        <span class="tag">javafx</span>
-                        <span class="tag is-grey">3</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/javafx-excel/">
-                        <span class="tag">javafx - excel</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/java%E6%A1%8C%E9%9D%A2%E5%BC%80%E5%8F%91/">
-                        <span class="tag">java桌面开发</span>
-                        <span class="tag is-grey">4</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/jfoenix/">
-                        <span class="tag">jfoenix</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/poi/">
-                        <span class="tag">poi</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/scene-builder/">
-                        <span class="tag">scene builder</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/springboot/">
-                        <span class="tag">springboot</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/vue/">
-                        <span class="tag">vue</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/%E9%83%A8%E7%BD%B2/">
-                        <span class="tag">部署</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-            </div>
-        </div>
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/drawerNavigation/" style="font-size: 10px;">drawerNavigation</a> <a href="/tags/fontawesomefx/" style="font-size: 13.33px;">fontawesomefx</a> <a href="/tags/javafx/" style="font-size: 16.67px;">javafx</a> <a href="/tags/javafx-excel/" style="font-size: 10px;">javafx - excel</a> <a href="/tags/java%E6%A1%8C%E9%9D%A2%E5%BC%80%E5%8F%91/" style="font-size: 20px;">java桌面开发</a> <a href="/tags/jfoenix/" style="font-size: 10px;">jfoenix</a> <a href="/tags/poi/" style="font-size: 10px;">poi</a> <a href="/tags/scene-builder/" style="font-size: 13.33px;">scene builder</a> <a href="/tags/springboot/" style="font-size: 13.33px;">springboot</a> <a href="/tags/vue/" style="font-size: 13.33px;">vue</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 13.33px;">部署</a>
     </div>
 </div>
         
@@ -590,10 +538,9 @@
         
         <article class="media">
             
-<!--                 if (thumbnail & post.link) -->
             <a href="/2020/0402/javafx04-excel.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（四）JavaFx与excel交互">
+                    <img class="thumbnail" src="/thumbnail/recent_default/0.jpg" alt="java开发桌面应用（四）JavaFx与excel交互">
                 </p>
             </a>
             
@@ -610,10 +557,9 @@
         
         <article class="media">
             
-<!--                 if (thumbnail & post.link) -->
             <a href="/2020/0330/javafx03-drawer.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（三）JavaFx写一个抽屉式导航">
+                    <img class="thumbnail" src="/thumbnail/recent_default/1.jpg" alt="java开发桌面应用（三）JavaFx写一个抽屉式导航">
                 </p>
             </a>
             
@@ -630,10 +576,9 @@
         
         <article class="media">
             
-<!--                 if (thumbnail & post.link) -->
             <a href="/2020/0329/javafx02-beautify.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（二）JavaFx美化FontAwesomeFX+CSS">
+                    <img class="thumbnail" src="/thumbnail/recent_default/2.jpg" alt="java开发桌面应用（二）JavaFx美化FontAwesomeFX+CSS">
                 </p>
             </a>
             
@@ -650,10 +595,9 @@
         
         <article class="media">
             
-<!--                 if (thumbnail & post.link) -->
             <a href="/2020/0327/javafx01-helloworld.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java开发桌面应用（一）JavaFx初体验Jfoenix UI+Scene Builder">
+                    <img class="thumbnail" src="/thumbnail/recent_default/3.jpg" alt="java开发桌面应用（一）JavaFx初体验Jfoenix UI+Scene Builder">
                 </p>
             </a>
             
@@ -670,10 +614,9 @@
         
         <article class="media">
             
-<!--                 if (thumbnail & post.link) -->
             <a href="/2020/0326/vue-springboot-deploy02.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Vue+Springboot项目部署（二）启动">
+                    <img class="thumbnail" src="/thumbnail/recent_default/4.jpg" alt="Vue+Springboot项目部署（二）启动">
                 </p>
             </a>
             
@@ -729,98 +672,10 @@
     
         <div class="card widget">
     <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                标签
-            </h3>
-            <div class="field is-grouped is-grouped-multiline">
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/css/">
-                        <span class="tag">css</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/drawerNavigation/">
-                        <span class="tag">drawerNavigation</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/fontawesomefx/">
-                        <span class="tag">fontawesomefx</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/javafx/">
-                        <span class="tag">javafx</span>
-                        <span class="tag is-grey">3</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/javafx-excel/">
-                        <span class="tag">javafx - excel</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/java%E6%A1%8C%E9%9D%A2%E5%BC%80%E5%8F%91/">
-                        <span class="tag">java桌面开发</span>
-                        <span class="tag is-grey">4</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/jfoenix/">
-                        <span class="tag">jfoenix</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/poi/">
-                        <span class="tag">poi</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/scene-builder/">
-                        <span class="tag">scene builder</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/springboot/">
-                        <span class="tag">springboot</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/vue/">
-                        <span class="tag">vue</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/%E9%83%A8%E7%BD%B2/">
-                        <span class="tag">部署</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-            </div>
-        </div>
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/drawerNavigation/" style="font-size: 10px;">drawerNavigation</a> <a href="/tags/fontawesomefx/" style="font-size: 13.33px;">fontawesomefx</a> <a href="/tags/javafx/" style="font-size: 16.67px;">javafx</a> <a href="/tags/javafx-excel/" style="font-size: 10px;">javafx - excel</a> <a href="/tags/java%E6%A1%8C%E9%9D%A2%E5%BC%80%E5%8F%91/" style="font-size: 20px;">java桌面开发</a> <a href="/tags/jfoenix/" style="font-size: 10px;">jfoenix</a> <a href="/tags/poi/" style="font-size: 10px;">poi</a> <a href="/tags/scene-builder/" style="font-size: 13.33px;">scene builder</a> <a href="/tags/springboot/" style="font-size: 13.33px;">springboot</a> <a href="/tags/vue/" style="font-size: 13.33px;">vue</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 13.33px;">部署</a>
     </div>
 </div>
     
@@ -835,9 +690,12 @@
         <div class="level">
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
+                    <img src="/images/logo_sky.svg" alt="about" height="28">
+<!--
                 
-                    nihao
+                    醒不来
                 
+-->
                 </a>
                 <p class="is-size-7">
                 &copy; 2020 醒不来&nbsp;
