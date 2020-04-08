@@ -120,9 +120,6 @@ img.thumbnail {
   color: #3273dc;
   background-color: transparent;
 }
-.navbar-main .navbar-item:hover {
-  color: #2e9a0c !important;
-}
 @media screen and (max-width: 1087px) {
   .navbar-main .navbar-menu {
     justify-content: center;
@@ -557,4 +554,7 @@ figure.highlight .section {
   justify-content: space-between;
   font-size: 13px;
   color: #888;
+}
+.entrance:hover {
+  color: #ffb826 !important;
 }
